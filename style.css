@@ -2,53 +2,134 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 body {
-  background: linear-gradient(180deg, #2b0057, #1a0033);
-  color: white;
+  background: #f5f5f5;
+  color: #111;
+  padding-bottom: 90px;
+}
+
+/* HEADER */
+.top-bar {
+  background: linear-gradient(135deg, #8A05BE, #6A00A8);
   padding: 20px;
-}
-
-h1 {
-  margin-bottom: 10px;
-}
-
-.card {
-  background: #3a0066;
-  padding: 20px;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-}
-
-.saldo {
-  font-size: 32px;
-  font-weight: bold;
-  margin-top: 10px;
-}
-.section-title {
-  margin: 15px 0 8px;
-  font-weight: bold;
-  opacity: 0.9;
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, #8a2be2, #a855f7);
-  border: none;
-  padding: 12px 16px;
-  margin-top: 10px;
-  margin-right: 8px;
-  border-radius: 12px;
   color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: white;
+  color: #8A05BE;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome {
   font-size: 14px;
-  cursor: pointer;
-  transition: 0.3s;
+  opacity: 0.8;
 }
 
-.btn-primary:hover {
-  transform: scale(1.05);
-  opacity: 0.9;
+/* SALDO */
+.balance-section {
+  padding: 20px;
+  margin-top: -25px;
+}
+
+.balance-card {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.balance-card p {
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.balance-card h1 {
+  font-size: 28px;
+  margin-top: 8px;
+}
+
+/* AÇÕES */
+.actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.action-item {
+  text-align: center;
+  cursor: pointer;
+}
+
+.circle {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+/* LISTAS */
+.main-area {
+  padding: 20px;
+}
+
+.section-title {
+  margin: 15px 0;
+  font-size: 16px;
+}
+
+.card-list div {
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* MENU */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
+  box-shadow: 0 -5px 20px rgba(0,0,0,0.08);
+}
+
+.nav-item {
+  text-align: center;
+  font-size: 12px;
+  color: #888;
+}
+
+.nav-item.active {
+  color: #8A05BE;
 }
