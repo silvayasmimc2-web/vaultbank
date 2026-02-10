@@ -2,84 +2,97 @@ let saldo = 5000;
 let saldoVisivel = true;
 
 const saldoElemento = document.getElementById("saldo");
-const listaHistorico = document.getElementById("listaHistorico");
+const historicoLista = document.getElementById("listaHistorico");
 
-// Formatar moeda
-function formatarMoeda(valor) {
+function formatar(valor) {
   return valor.toLocaleString("pt-BR", {
     style: "currency",
     currency: "BRL"
   });
 }
 
-// Atualizar saldo na tela
 function atualizarSaldo() {
   if (saldoVisivel) {
-    saldoElemento.innerText = formatarMoeda(saldo);
+    saldoElemento.textContent = formatar(saldo);
   } else {
-    saldoElemento.innerText = "••••••";
+    saldoElemento.textContent = "••••••";
   }
 }
 
-// Mostrar / esconder saldo
-function alternarSaldo() {
+function toggleSaldo() {
   saldoVisivel = !saldoVisivel;
   atualizarSaldo();
 }
 
-// Histórico
-let historico = [
-  { tipo: "entrada", descricao: "Pix recebido", valor: 800 },
-  { tipo: "saida", descricao: "Supermercado", valor: -230 },
-  { tipo: "saida", descricao: "Netflix", valor: -39.90 }
-];
+function adicionarHistorico(texto, valor) {
+  const item = document.createElement("div");
+  item.classList.add("card");
 
-function atualizarHistorico() {
-  listaHistorico.innerHTML = "";
+  const titulo = document.createElement("strong");
+  titulo.textContent = texto;
 
-  historico.forEach(item => {
-    const div = document.createElement("div");
-    div.classList.add("historico-item");
+  const data = document.createElement("small");
+  data.textContent = "Hoje • " + new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
 
-    div.innerHTML = `
-      <div>
-        <strong>${item.descricao}</strong>
-      </div>
-      <div class="${item.tipo}">
-        ${formatarMoeda(item.valor)}
-      </div>
-    `;
+  const valorElemento = document.createElement("p");
+  valorElemento.textContent = formatar(valor);
 
-    listaHistorico.appendChild(div);
-  });
+  if (valor > 0) {
+    valorElemento.style.color = "#1faa00";
+  } else {
+    valorElemento.style.color = "#e53935";
+  }
+
+  item.appendChild(titulo);
+  item.appendChild(data);
+  item.appendChild(valorElemento);
+
+  historicoLista.prepend(item);
 }
 
-// Ações
 function depositar() {
-  saldo += 100;
-  historico.unshift({ tipo: "entrada", descricao: "Depósito", valor: 100 });
-  atualizarSaldo();
-  atualizarHistorico();
+  const valor = parseFloat(prompt("Valor para depositar:"));
+  if (!isNaN(valor) && valor > 0) {
+    saldo += valor;
+    atualizarSaldo();
+    adicionarHistorico("Depósito", valor);
+  }
 }
 
 function sacar() {
-  saldo -= 50;
-  historico.unshift({ tipo: "saida", descricao: "Saque", valor: -50 });
-  atualizarSaldo();
-  atualizarHistorico();
-}
-
-function criarCaixinha() {
-  alert("Função em desenvolvimento 💜");
+  const valor = parseFloat(prompt("Valor para sacar:"));
+  if (!isNaN(valor) && valor > 0 && valor <= saldo) {
+    saldo -= valor;
+    atualizarSaldo();
+    adicionarHistorico("Saque", -valor);
+  }
 }
 
 function pagar() {
-  saldo -= 120;
-  historico.unshift({ tipo: "saida", descricao: "Pagamento", valor: -120 });
-  atualizarSaldo();
-  atualizarHistorico();
+  const valor = parseFloat(prompt("Valor do pagamento:"));
+  if (!isNaN(valor) && valor > 0 && valor <= saldo) {
+    saldo -= valor;
+    atualizarSaldo();
+    adicionarHistorico("Pagamento", -valor);
+  }
 }
 
-// Inicialização
-atualizarSaldo();
-atualizarHistorico();
+function criarCaixinha() {
+  const valor = parseFloat(prompt("Valor para guardar na caixinha:"));
+  if (!isNaN(valor) && valor > 0 && valor <= saldo) {
+    saldo -= valor;
+    atualizarSaldo();
+    adicionarHistorico("Caixinha criada", -valor);
+  }
+}
+
+window.onload = function () {
+  atualizarSaldo();
+
+  // animação de entrada
+  document.body.style.opacity = 0;
+  setTimeout(() => {
+    document.body.style.transition = "opacity 0.6s ease";
+    document.body.style.opacity = 1;
+  }, 100);
+};
