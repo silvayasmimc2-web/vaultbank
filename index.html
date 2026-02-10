@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VaultBank Pro</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+
+  <meta name="theme-color" content="#8a2be2">
+</head>
+
+<body>
+
+<h1>VaultBank</h1>
+
+<div class="card">
+  <p>Saldo disponível</p>
+  <div class="saldo" id="saldo">R$ 0.00</div>
+  <button class="btn-primary" onclick="depositar()">Depositar</button>
+  <button class="btn-primary" onclick="criarCaixinha()">Nova Caixinha</button>
+</div>
+
+<h2 class="section-title">Caixinhas</h2>
+<div id="listaCaixinhas"></div>
+
+<h2 class="section-title">Histórico</h2>
+<div id="listaHistorico"></div>
+<script src="main.js"></script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+
+</body>
+</html>
