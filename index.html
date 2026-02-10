@@ -1,32 +1,84 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VaultBank Pro</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VaultBank Pro</title>
 
-  <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="estilo.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#8A05BE">
 
-  <meta name="theme-color" content="#8a2be2">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<h1>VaultBank</h1>
+<!-- HEADER -->
+<header class="top-bar">
+  <div class="profile">
+    <div class="avatar">V</div>
+    <div>
+      <p class="welcome">Olá,</p>
+      <h2>Victor</h2>
+    </div>
+  </div>
+  <div class="icons">
+    <span>👁</span>
+    <span>❓</span>
+  </div>
+</header>
 
-<div class="card">
-  <p>Saldo disponível</p>
-  <div class="saldo" id="saldo">R$ 0.00</div>
-  <button class="btn-primary" onclick="depositar()">Depositar</button>
-  <button class="btn-primary" onclick="criarCaixinha()">Nova Caixinha</button>
-</div>
+<!-- SALDO -->
+<section class="balance-section">
+  <div class="balance-card">
+    <p>Conta</p>
+    <h1 id="saldo">R$ 0,00</h1>
+  </div>
+</section>
 
-<h2 class="section-title">Caixinhas</h2>
-<div id="listaCaixinhas"></div>
+<!-- AÇÕES -->
+<section class="actions">
+  <div class="action-item" onclick="depositar()">
+    <div class="circle">💰</div>
+    <p>Depositar</p>
+  </div>
 
-<h2 class="section-title">Histórico</h2>
-<div id="listaHistorico"></div>
+  <div class="action-item" onclick="sacar()">
+    <div class="circle">💸</div>
+    <p>Sacar</p>
+  </div>
+
+  <div class="action-item" onclick="criarCaixinha()">
+    <div class="circle">📦</div>
+    <p>Caixinha</p>
+  </div>
+
+  <div class="action-item" onclick="pagar()">
+    <div class="circle">💳</div>
+    <p>Pagar</p>
+  </div>
+</section>
+
+<!-- ÁREA PRINCIPAL -->
+<section class="main-area">
+
+  <h3 class="section-title">Minhas Caixinhas</h3>
+  <div id="listaCaixinhas" class="card-list"></div>
+
+  <h3 class="section-title">Histórico</h3>
+  <div id="listaHistorico" class="card-list"></div>
+
+</section>
+
+<!-- MENU INFERIOR -->
+<nav class="bottom-nav">
+  <div class="nav-item active">🏠<span>Início</span></div>
+  <div class="nav-item">💳<span>Cartão</span></div>
+  <div class="nav-item">📊<span>Invest.</span></div>
+  <div class="nav-item">👤<span>Perfil</span></div>
+</nav>
+
 <script src="main.js"></script>
 
 <script>
