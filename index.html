@@ -13,14 +13,21 @@
 </head>
 
 <body>
-
+<!-- LOGIN SCREEN -->
+<div id="loginScreen" class="login-screen">
+  <div class="login-box">
+    <h2>VaultBank</h2>
+    <input type="text" id="nomeUsuario" placeholder="Digite seu nome" />
+    <button onclick="fazerLogin()">Entrar</button>
+  </div>
+</div>
 <!-- HEADER -->
 <header class="top-bar">
   <div class="profile">
     <div class="avatar">V</div>
     <div>
       <p class="welcome">Olá,</p>
-      <h2>Victor</h2>
+      <h2 id="userName">Usuário</h2>
     </div>
   </div>
   <div class="icons">
