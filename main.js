@@ -1,9 +1,20 @@
-let saldo = 5000;
+// ===============================
+// DADOS SALVOS
+// ===============================
+
+let saldo = localStorage.getItem("saldo")
+  ? parseFloat(localStorage.getItem("saldo"))
+  : 5000;
+
 let saldoVisivel = true;
 
 const saldoElemento = document.getElementById("saldo");
 const historicoLista = document.getElementById("listaHistorico");
-const userName = document.getElementById("userName");
+const userNameElement = document.getElementById("userName");
+
+// ===============================
+// FORMATAÇÃO
+// ===============================
 
 function formatar(valor) {
   return valor.toLocaleString("pt-BR", {
@@ -12,22 +23,57 @@ function formatar(valor) {
   });
 }
 
+// ===============================
+// ATUALIZAR SALDO
+// ===============================
+
 function atualizarSaldo() {
   if (saldoVisivel) {
     saldoElemento.textContent = formatar(saldo);
   } else {
     saldoElemento.textContent = "••••••";
   }
+
+  localStorage.setItem("saldo", saldo);
 }
+
+// ===============================
+// TOGGLE SALDO
+// ===============================
 
 function toggleSaldo() {
   saldoVisivel = !saldoVisivel;
   atualizarSaldo();
 }
 
+// ===============================
+// HISTÓRICO
+// ===============================
+
+function salvarHistorico() {
+  localStorage.setItem("historico", historicoLista.innerHTML);
+}
+
+function carregarHistorico() {
+  const salvo = localStorage.getItem("historico");
+  if (salvo) {
+    historicoLista.innerHTML = salvo;
+  }
+}
+
 function adicionarHistorico(texto, valor) {
   const item = document.createElement("div");
   item.classList.add("transaction");
+
+  const left = document.createElement("div");
+  left.classList.add("transaction-left");
+
+  const icon = document.createElement("div");
+  icon.classList.add("transaction-icon");
+
+  icon.textContent = valor > 0 ? "⬆️" : "⬇️";
+
+  const info = document.createElement("div");
 
   const titulo = document.createElement("strong");
   titulo.textContent = texto;
@@ -40,21 +86,28 @@ function adicionarHistorico(texto, valor) {
       minute: "2-digit"
     });
 
+  info.appendChild(titulo);
+  info.appendChild(data);
+
+  left.appendChild(icon);
+  left.appendChild(info);
+
   const valorElemento = document.createElement("span");
   valorElemento.textContent = formatar(valor);
 
-  if (valor > 0) {
-    valorElemento.style.color = "#00c853";
-  } else {
-    valorElemento.style.color = "#d50000";
-  }
+  valorElemento.style.color = valor > 0 ? "#00c853" : "#d50000";
 
-  item.appendChild(titulo);
-  item.appendChild(data);
+  item.appendChild(left);
   item.appendChild(valorElemento);
 
   historicoLista.prepend(item);
+
+  salvarHistorico();
 }
+
+// ===============================
+// AÇÕES
+// ===============================
 
 function depositar() {
   const valor = parseFloat(prompt("Valor para depositar:"));
@@ -84,7 +137,7 @@ function pagar() {
 }
 
 function criarCaixinha() {
-  const valor = parseFloat(prompt("Valor para guardar:"));
+  const valor = parseFloat(prompt("Valor para guardar na caixinha:"));
   if (!isNaN(valor) && valor > 0 && valor <= saldo) {
     saldo -= valor;
     atualizarSaldo();
@@ -92,16 +145,35 @@ function criarCaixinha() {
   }
 }
 
-/* LOGIN */
-function fazerLogin() {
-  const nome = document.getElementById("nomeUsuario").value;
+// ===============================
+// LOGIN
+// ===============================
 
-  if (nome.trim() !== "") {
-    userName.textContent = nome;
+function fazerLogin() {
+  const nome = document.getElementById("nomeUsuario").value.trim();
+
+  if (nome !== "") {
+    localStorage.setItem("nomeUsuario", nome);
     document.getElementById("loginScreen").style.display = "none";
+    userNameElement.textContent = nome;
   }
 }
 
+function verificarLogin() {
+  const nomeSalvo = localStorage.getItem("nomeUsuario");
+
+  if (nomeSalvo) {
+    document.getElementById("loginScreen").style.display = "none";
+    userNameElement.textContent = nomeSalvo;
+  }
+}
+
+// ===============================
+// INICIALIZAÇÃO
+// ===============================
+
 window.onload = function () {
+  verificarLogin();
   atualizarSaldo();
+  carregarHistorico();
 };
